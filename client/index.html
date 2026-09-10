@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>E Commerce Analytics Dashboard | Sales & Revenue Analytics</title>
+    <meta
+      name="description"
+      content="Analyze revenue, orders, products, and customer performance with an interactive e-commerce analytics dashboard — real-time charts, filters, and CSV export."
+    />
+    <meta name="robots" content="noindex, nofollow" />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="E Commerce Analytics Dashboard" />
+    <meta
+      property="og:description"
+      content="Interactive sales analytics: revenue trends, order volume, category breakdowns, and top products, backed by a real MongoDB-powered API."
+    />
+    <meta property="og:type" content="website" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Loaded non-render-blocking: the stylesheet is fetched as a low
+         priority "style" preload and only promoted to an active
+         stylesheet once it arrives, so first paint doesn't wait on a
+         third-party CSS request. Inter isn't defined until then, but
+         index.css's fallback chain (ui-sans-serif/system-ui) covers the
+         gap, and the Google Fonts CSS already sets font-display: swap. -->
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      />
+    </noscript>
+  </head>
+  <body class="bg-slate-50 dark:bg-slate-950">
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>

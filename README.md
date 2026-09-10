@@ -118,6 +118,29 @@ cd client && npm run test:run        # or npm run test:coverage
 cd client && npm run test:e2e
 ```
 
+**Coverage summary** — 106 frontend tests, 66 backend tests, 2 E2E tests,
+all passing:
+
+- **Frontend** (Vitest + React Testing Library + user-event): dashboard/
+  component rendering (stat cards, all 4 charts, tables — loading/error/
+  empty states included), real user interactions (category + date-preset
+  filter changes, Reset Filters, sorting and the Top 5/10/20 limit
+  selector, pagination boundaries, debounced search, CSV export), and
+  date-range input validation (the app has no data-entry forms, so the
+  nearest real analog — the custom date picker's start/end constraints —
+  is what's tested instead)
+- **Backend** (Vitest + Supertest): happy-path success and response shape
+  for every analytics/orders/products/customers/categories endpoint, plus
+  failure cases — invalid/incomplete/reversed dates, invalid status,
+  invalid pagination, limit out of range — and real calculation
+  correctness (revenue/AOV math, category totals, order-status
+  zero-filling) against controlled fixtures, not just HTTP 200 checks
+- **E2E** (Playwright): the realistic dashboard flow — load, wait for real
+  analytics, change the category filter, change the date range, confirm
+  every section (stat cards, all 4 charts, top products, recent orders)
+  is still present with zero 5xx responses — plus a mobile-viewport
+  overflow check
+
 See `server/README.md` and `client/README.md` for the full test
 breakdown (what each file covers) and the specific database-isolation
 approach used for backend tests (no live/in-memory MongoDB was available

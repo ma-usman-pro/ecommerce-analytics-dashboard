@@ -101,6 +101,10 @@ src/tests/
 ├── FilterBar.test.jsx       real user interaction: category select, date
 │                           preset click, Reset Filters, via the actual
 │                           DashboardFilterContext (not mocked)
+├── DateRangeValidation.test.jsx  the custom date-range picker's start/
+│                                end constraints — the closest real
+│                                analog to "form validation" this app has
+│                                (no data-entry forms exist to validate)
 ├── Charts.test.jsx          all 4 charts — loading/error/empty/real-data,
 │                           mocking the data hooks (not Recharts' SVG
 │                           internals, per the "no fragile tests" rule)

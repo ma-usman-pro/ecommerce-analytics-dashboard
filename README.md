@@ -15,18 +15,18 @@ export — all built and tested across eight incremental parts.
 
 </details>
 
-> Screenshots are from local testing against a realistic fixture dataset
-> (see [Live Demo](#live-demo) below for why — no data here is fabricated
-> or hand-tuned to look better than the real seeded database).
+> Screenshots are from local testing against a realistic fixture dataset —
+> no data here is fabricated or hand-tuned to look better than the real
+> seeded database.
 
 ## Live Demo
 
-**Not deployed.** This project was built in a sandboxed environment with
-no network access to hosting providers (Render, Railway, Vercel, Netlify)
-or MongoDB Atlas, and no accounts/credentials for any of them — so there
-is no live URL to link here. The application is fully deployment-ready
-(see [Deployment](#deployment) below for exactly what's configured and
-the steps to actually deploy it).
+**Live app:** [https://ecommerce-analytics-dashboard-production-a7a5.up.railway.app](https://ecommerce-analytics-dashboard-production-a7a5.up.railway.app)
+
+Deployed on [Railway](https://railway.app) — frontend and backend run as
+separate services (`incredible-enjoyment` and `imaginative-charm`
+respectively) connected to a MongoDB Atlas cluster. See
+[Deployment](#deployment) below for the exact setup.
 
 ## Features
 
@@ -60,7 +60,8 @@ the steps to actually deploy it).
 |---|---|
 | Frontend | React 18, Vite, Tailwind CSS, Recharts, React Router, Axios |
 | Backend | Node.js, Express, Mongoose |
-| Database | MongoDB |
+| Database | MongoDB (MongoDB Atlas in production) |
+| Hosting | Railway (frontend + backend as separate services) |
 | Testing | Vitest, React Testing Library, Supertest, Playwright |
 | Security | Helmet, express-rate-limit, environment-aware CORS |
 
@@ -169,32 +170,31 @@ to the frontend — `MONGO_URI` exists only in the backend's environment.
 
 ## Deployment
 
-Not deployed (see [Live Demo](#live-demo)), but everything needed to
-deploy it is already configured and verified locally:
+Deployed on [Railway](https://railway.app) as two separate services
+sharing a project, connected to a MongoDB Atlas cluster:
 
-**Backend** — deployable to Render, Railway, Fly.io, or similar:
+**Backend** (`imaginative-charm`):
 - Build command: `npm install`
 - Start command: `npm start`
-- Environment variables: `MONGO_URI`, `PORT` (usually provided by the
-  platform), `NODE_ENV=production`, `CLIENT_URL=<your deployed frontend>`
+- Environment variables: `MONGO_URI` (Atlas connection string), `PORT`
+  (provided by Railway), `NODE_ENV=production`, `CLIENT_URL` (the
+  frontend service's public URL, for CORS)
 - The app fails closed on CORS if `CLIENT_URL` is missing in production
   (logs a warning rather than silently allowing every origin)
 - `GET /api/health` returns `{ success: true, status: "ok", database:
   "connected" | "disconnected" }` for uptime monitoring
 
-**Frontend** — deployable to Vercel, Netlify, or Cloudflare Pages:
+**Frontend** (`incredible-enjoyment`):
 - Build command: `npm run build`
 - Output directory: `dist`
-- Environment variable: `VITE_API_URL=<your deployed backend>/api`
+- Environment variable: `VITE_API_URL=<backend service URL>/api`
 - Route-level code splitting is already in place (`React.lazy`), so the
   initial JS payload doesn't include the charting library until you
   actually visit the dashboard
 
-**Database** — MongoDB Atlas (or any hosted MongoDB): create a
-production database separate from any local development one, add a
-database user with a strong password, configure network access for your
-backend host, then run `npm run seed` **once** against it — the seed
-script is not run automatically on server start.
+**Database** — MongoDB Atlas, seeded once via `npm run seed` run against
+the production connection string (never run automatically on server
+start).
 
 ## Performance & Accessibility
 
